@@ -1,0 +1,79 @@
+<section class="vh-100" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center" style="padding: 50px">
+      <div class="col col-lg-9 col-xl-7">
+        <h3>Uređivanje liste</h3>
+        <form #listForm="ngForm" (ngSubmit)="spremiListu()">
+          <label>Naziv</label>
+          <input
+            [(ngModel)]="lista.title"
+            type="text"
+            name="naziv"
+            class="form-control"
+          />
+          <label>Tag</label>
+          <input
+            [(ngModel)]="lista.tag"
+            type="text"
+            name="tag"
+            class="form-control"
+          />
+          <div *ngIf="lista.listItems != null">
+            <hr />
+            <p>Zadaci</p>
+            <div
+              *ngFor="let item of lista.listItems; let index = index"
+              class="form-group mb-1"
+            >
+              <input
+                [(ngModel)]="item.id"
+                type="number"
+                [name]="'id' + index"
+                [value]="item.id"
+                hidden
+              />
+              <input
+                [(ngModel)]="item.opis"
+                class="form-control"
+                type="text"
+                [name]="'opis' + index"
+                [value]="item.opis"
+              />
+              <select
+                [name]="'inProgress' + index"
+                [(ngModel)]="item.inProgress"
+                class="form-control"
+              >
+                <option [ngValue]="true">U procesu</option>
+                <option [ngValue]="false">Završeno</option>
+              </select>
+
+              <button
+                class="btn btn-danger btn-block"
+                style="width: 100%"
+                type="button"
+                (click)="obrisiZadatak(item)"
+              >
+                Obriši zadatak
+              </button>
+            </div>
+            <button type="button" class="btn btn-info" (click)="dodajZadatak()">
+              Dodaj zadatak
+            </button>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block mt-5 me-2">
+            Spremi
+          </button>
+          <button
+            type="button"
+            routerLink="/liste"
+            class="btn btn-danger btn-block mt-5"
+          >
+            Odustani
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

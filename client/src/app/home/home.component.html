@@ -1,0 +1,110 @@
+<section class="vh-100" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card rounded-3">
+          <div class="card-body p-4">
+            <h4 class="text-center my-3 pb-3">Lista zadataka</h4>
+            <p class="text-center">
+              <button
+                (click)="dohvatiListe()"
+                type="button"
+                class="btn btn-info"
+              >
+                Osvježi listu
+              </button>
+            </p>
+
+            <form #zadatakForma="ngForm" (ngSubmit)="dodajZadatak()">
+              <div class="row">
+                <div class="col-12 mb-3">
+                  <label class="text-center">Odaberi postojeću listu</label>
+                  <select
+                    class="form-control"
+                    name="lista"
+                    (change)="izmjenaListe($event)"
+                  >
+                    <option [value]="0">Odaberi</option>
+                    <option
+                      *ngFor="let todoList of todoLists"
+                      [value]="todoList.id"
+                    >
+                      {{ todoList.title }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
+              >
+                <div class="col-12">
+                  <div data-mdb-input-init class="form-outline">
+                    <input
+                      [(ngModel)]="noviZadatak.opis"
+                      name="opis"
+                      type="text"
+                      id="form1"
+                      class="form-control"
+                      placeholder="Opis zadatka"
+                    />
+                  </div>
+                </div>
+              
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    data-mdb-button-init
+                    data-mdb-ripple-init
+                    class="btn btn-primary"
+                  >
+                    Dodaj zadatak u listu
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">Rbr.</th>
+                  <th scope="col">Opis</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="text-center">Akcije</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="selectedList != null">
+                <tr *ngFor="let listItem of selectedList.listItems; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ listItem.opis }}</td>
+                  <td>
+                    {{ listItem.inProgress == true ? "U procesu" : "Završeno" }}
+                  </td>
+                  <td class="text-center">
+                    <button
+                      (click)="obrisiZadatak(listItem)"
+                      type="button"
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn btn-danger"
+                    >
+                      Obriši
+                    </button>
+                    <button
+                      (click)="zavrsiZadatak(listItem)"
+                      type="button"
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn btn-success ms-1"
+                    >
+                      Završi
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

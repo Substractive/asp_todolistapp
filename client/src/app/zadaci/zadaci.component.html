@@ -1,0 +1,41 @@
+<section class="vh-100" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div
+      class="row d-flex justify-content-center align-items-top h-100"
+      style="padding: 50px"
+    >
+      <div class="col col-lg-9 col-xl-7">
+        <table class="table mb-4">
+          <thead>
+            <tr>
+              <th scope="col">Rbr.</th>
+              <th scope="col">Naziv</th>
+              <th scope="col">Broj zadataka</th>
+              <th scope="col" class="text-center">Akcije</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="zadaci != null">
+            <tr *ngFor="let zadatak of zadaci; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ zadatak.opis }}</td>
+              <td>
+                {{ zadatak.inProgress == true ? "U procesu" : "Završen" }}
+              </td>
+              <td class="text-center">
+                <button
+                  (click)="obrisiZadatak(zadatak)"
+                  type="button"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-danger"
+                >
+                  Obriši
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

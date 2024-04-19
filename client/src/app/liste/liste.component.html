@@ -1,0 +1,71 @@
+<section class="vh-100" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center" style="padding: 50px">
+      <div class="col col-lg-9 col-xl-7">
+        <h3>Izradi novu listu</h3>
+        <form #listForm="ngForm" (ngSubmit)="spremiListu()">
+          <label>Naziv</label>
+          <input
+            [(ngModel)]="novaLista.title"
+            type="text"
+            name="naziv"
+            class="form-control"
+          />
+          <label>Tag</label>
+          <input
+            [(ngModel)]="novaLista.tag"
+            type="text"
+            name="tag"
+            class="form-control"
+          />
+          <button type="submit" class="btn btn-primary btn-block">
+            Spremi
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center" style="padding: 50px">
+      <div class="col col-lg-9 col-xl-7">
+        <table class="table mb-4">
+          <thead>
+            <tr>
+              <th scope="col">Rbr.</th>
+              <th scope="col">Naziv</th>
+              <th scope="col">Broj zadataka</th>
+              <th scope="col" class="text-center">Akcije</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="todoLists != null">
+            <tr *ngFor="let lista of todoLists; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ lista.title }}</td>
+              <td>
+                {{ lista.listItems.length }}
+              </td>
+              <td class="text-center">
+                <button
+                  (click)="obrisiListu(lista)"
+                  type="button"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-danger"
+                >
+                  Obriši
+                </button>
+                <button
+                  type="button"
+                  [routerLink]="['/lista', lista.id]"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-secondary ms-1"
+                >
+                  Uredi
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
